@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Weather extends Model
+class Forecast extends Model
 {
     use HasFactory;
 
-    protected $table = "weather";
+    protected $table = "forecasts";
 
     protected $fillable = [
-        // 'city',
-        // 'country',
         'city_id',
         'temperature',
         'date',
@@ -23,6 +21,5 @@ class Weather extends Model
     {
         return $this->belongsTo(City::class);
     }
-
 
 }

@@ -70,7 +70,7 @@ class WeatherController extends Controller
         $singleWeather = Weather::where(['id' => $weather])->first();
 
         if($singleWeather === null) {
-            die("Ovaj proizvod ne postoji");
+            die("Ne postoji");
         }
 
         $singleWeather->delete();

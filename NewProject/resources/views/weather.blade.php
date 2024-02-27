@@ -94,52 +94,52 @@
     </head>
 
     <body>
-        <main>
-            <section class="py-2 text-center container">
-                <div class="row py-lg-2">
-                    <div class="col-lg-8 col-md-8 mx-auto">
-                        <h1 class="fw-light">Weather Forecast - Balkan & SE Europe</h1>
-                        <p class="lead text-body-secondary">Stay informed about the weather in the Balkans. Whether you're
-                            planning a trip or just want to stay ahead of the weather, our comprehensive forecasts will keep
-                            you informed.</p>
-                    </div>
+    <main>
+        <section class="py-2 text-center container">
+            <div class="row py-lg-2">
+                <div class="col-lg-8 col-md-8 mx-auto">
+                    <h1 class="fw-light">Weather Forecast</h1>
+                    <p class="lead text-body-secondary">Stay informed about the weather. Whether you're
+                        planning a trip or just want to stay ahead of the weather, our comprehensive forecasts will keep
+                        you informed.</p>
                 </div>
-            </section>
-            <div class="album py-5 bg-body-tertiary">
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        @foreach ($allWeathers as $weather)
-                            <div class="col">
-                                <div class="card shadow-sm">
+            </div>
+        </section>
+        <div class="album py-5 bg-body-tertiary">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    @foreach ($allWeathers as $weather)
+                        <div class="col">
+                            <div class="card shadow-sm">
 
-                                    <svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <image href="/img/{{$weather->city}}.PNG" width="100%" />
-                                      </svg>
+                                <svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <image href="/img/{{$weather->city}}.PNG" width="100%" />
+                                    </svg>
 
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            City: {{ $weather->city }}<br>
-                                            Country: {{ $weather->country }}<br>
-                                            Temperature: {{ $weather->temperature }} °C<br>
-                                            Date: {{ $weather->date }}<br>
-                                            <hr>
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary">View</button>
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary">Edit</button>
-                                            </div>
-                                            <small class="text-body-secondary">9 mins</small>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        City: {{ $weather->city }}<br>
+                                        {{-- Country: {{ $weather->country }}<br> --}}
+                                        Temperature: {{ $weather->temperature }} °C<br>
+                                        Date: {{ $weather->date }}<br>
+                                        <hr>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button"
+                                                class="btn btn-sm btn-outline-secondary">View</button>
+                                            <button type="button"
+                                                class="btn btn-sm btn-outline-secondary">Edit</button>
                                         </div>
+                                        <small class="text-body-secondary">9 mins</small>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        </main>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+    </main>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     @endsection
