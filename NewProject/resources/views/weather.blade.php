@@ -113,12 +113,12 @@
                             <div class="card shadow-sm">
 
                                 <svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                    <image href="/img/{{$weather->city}}.PNG" width="100%" />
+                                    <image href="/img/{{$weather->city->name}}.PNG" width="100%" />
                                     </svg>
 
                                 <div class="card-body">
                                     <p class="card-text">
-                                        City: {{ $weather->city }}<br>
+                                        City: {{ $weather->city->name }}<br>
                                         {{-- Country: {{ $weather->country }}<br> --}}
                                         Temperature: {{ $weather->temperature }} °C<br>
                                         Date: {{ $weather->date }}<br>
