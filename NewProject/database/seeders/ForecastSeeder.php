@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use App\Models\Forecast;
+use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,12 +25,23 @@ class ForecastSeeder extends Seeder
         $cities = City::all();
         foreach ($cities as $city) {
 
-            for ($i = 0; $i < $amount; $i++)
-            {
+            for ($i = 0; $i < $amount; $i++) {
+                $weatherType = Forecast::WEATHERS[rand(0,2)];
+                $probabilty = null;
+
+                if($weatherType == 'rainy' || $weatherType == 'snow') {
+                    $probabilty = rand(1,100);
+                }
+
+                $currentDate = Carbon::now();
+                $forecastDate = $currentDate->addDays($i);
+
                 Forecast::create([
                     'city_id' => $city->id,
                     'temperature' => $faker->randomFloat(2, -30, 40),
-                    'date' => $faker->dateTimeBetween('+1 day', '+5 days')->format('Y-m-d'),
+                    'date' => $forecastDate->format('Y-m-d'),
+                    'weather_type' => $weatherType,
+                    'probability' => $probabilty,
                 ]);
 
                 $this->command->getOutput()->progressAdvance();
@@ -37,6 +49,5 @@ class ForecastSeeder extends Seeder
         }
 
         $this->command->getOutput()->progressFinish();
-
     }
 }

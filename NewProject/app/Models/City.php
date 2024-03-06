@@ -18,12 +18,12 @@ class City extends Model
 
     public function weathers()
     {
-        return $this->hasMany(Weather::class);
+        return $this->hasMany(Weather::class, 'city_id', 'id');
     }
 
     public function forecasts()
     {
-        return $this->hasMany(Forecast::class);
+        return $this->hasMany(Forecast::class, 'city_id', 'id');
     }
 
 }

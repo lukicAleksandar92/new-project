@@ -8,8 +8,8 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-5 col-12 p-4">
-            <h4>Add weather forecast</h4>
+        <div class="col-md-5 col-10 p-4">
+            <h4>Add weather for today</h4>
 
             <form class="row" method="POST" action="{{route("NewWeather")}}">
                 @if ($errors->any())
@@ -19,33 +19,25 @@
                 @endif
 
             {{ csrf_field() }}
-
-                <div style="padding: 0;" class="row mt-2 col-12">
-                    <div class="col col-md-12 col-12 mt-2 mt-md-0">
-                        <input  name="city" value="{{ old("city") }}" required type="name" class="form-control" placeholder="city">
-                    </div>
+            <div style="padding: 0;" class="row mt-2 col-12">
+                <div class="col col-md-12 col-12 mt-2 mt-md-0">
+                <select class="form-select" aria-label="Default select example" name="city_id">
+                    @foreach (\App\Models\City::orderByDesc('id')->get() as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    @endforeach
+                </select>
                 </div>
-                <div style="padding: 0;" class="row mt-2 col-12">
-                    <div class="col col-md-12 col-12 mt-2 mt-md-0">
-                        <input  name="country" value="{{ old("country") }}" required type="text" class="form-control" placeholder="country">
-                    </div>
-                </div>
-                <div style="padding: 0;" class="row mt-2 col-12">
+            </div>
+                <div style="padding: 0;" class="row my-2 col-12">
                     <div class="col col-md-12 col-12 mt-2 mt-md-0">
                         <input  name="temperature" value="{{ old("temperature") }}"  required type="number" class="form-control" placeholder="temperature">
                     </div>
                 </div>
-                <div style="padding: 0;" class="row mb-3 mt-2 col-12">
-                    <div class="col col-md-12 col-12 mt-2 mt-md-0">
-                        <input type="date" name="date" class="form-control" placeholder="date">
-                    </div>
-                </div>
 
 
-                <button class="btn btn-outline-primary">Create New weather forecast</button>
+                <button class="btn btn-outline-primary">Create Weather forecast for today</button>
 
             </form>
-
         </div>
     </div>
 @endsection

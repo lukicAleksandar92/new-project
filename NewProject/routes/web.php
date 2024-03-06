@@ -4,6 +4,7 @@ use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
+use App\Models\Forecast;
 use App\Models\Weather;
 use Illuminate\Support\Facades\Route;
 
@@ -54,22 +55,38 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
     Route::get('weather/edit/{weather}', [WeatherController::class, 'editWeather'])
     ->name('editWeather');
 
-    Route::put('/weather/{weather}', [WeatherController::class, 'updateWeather'])
-    ->name('updateWeather');
-
-    //----------------------------------------------------------------------
+    Route::post('/weather/update', [WeatherController::class, 'updateWeather'])
+    ->name('weather.update');
 
     Route::get("/delete-weather/{weather}", [WeatherController::class, 'deleteWeather'])->name("deleteWeather");
 
 
+    //----------------------------------------------------------------------
+
+    Route::view("/forecasts", "admin.allForecast")->name("admin.allForecast");
+
+    Route::post('/forecast/add', [ForecastController::class, 'addForecast'])
+    ->name('forecast.add');
+
 });
 
-Route::get('/forecast/{city}', [ForecastController::class, 'index']);
 
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/forecast', [ForecastController::class, 'showAllForecast'])->name('forecast');
+
+    Route::get('/forecast/{city:name}', [ForecastController::class, 'showCityForecast'])
+    ->name('cityForecast');
+
+    //----------------------------------------------------------------------
+
     Route::get('/weather', [WeatherController::class, 'showAllWeather'])->name('weather');
+
+    Route::get('/weather/{city:name}', [WeatherController::class, 'showCityWeather'])
+    ->name('cityWeather');
+
 
     //----------------------------------------------------------------------
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

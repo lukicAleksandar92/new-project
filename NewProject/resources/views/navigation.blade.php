@@ -13,6 +13,9 @@
                     <a class="nav-link" href="{{ route('weather') }}">Weather</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/forecast">Forecast</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
             </ul>
@@ -44,7 +47,9 @@
             @if (Auth::user()->role == 'admin')
 
                 <li><a class="dropdown-item" href="{{ route('admin.allWeather') }}">All Weather</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin.addWeather') }}">Add Weather</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.allForecast') }}">All Forecast</a></li>
+
+                {{-- <li><a class="dropdown-item" href="{{ route('admin.addWeather') }}">Add Weather</a></li> --}}
             @endif
             <li>
                 <hr class="dropdown-divider">
