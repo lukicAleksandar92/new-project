@@ -34,6 +34,7 @@
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 @foreach (\App\Models\City::all() as $city)
+
                     <div class="row py-4">
                         <div class="card" style="border-radius: 25px;">
                             <div class="card-body p-4">
@@ -52,22 +53,18 @@
                                 <hr>
                                 <div class="row text-center mb-4 pb-3 pt-2">
                                 @foreach ($city->forecasts->sortBy('date') as $forecast)
+                                @php
+                                    $color = \App\Http\ForecastHelper::getColorByTemperature($forecast->temperature);
+                                    $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
+                                @endphp
                                     <div class="col">
-                                        <p class="small"><strong>{{ $forecast->temperature }} C</strong></p>
-
-                                        <p class="small">
-                                            @if ($forecast->weather_type == 'sunny')
-                                                <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                                            @elseif ($forecast->weather_type == 'rainy')
-                                                <i class="fas fa-cloud-rain fa-2x mb-3" style="color: #ddd;"></i>
-                                            @elseif ($forecast->weather_type == 'snow')
-                                                <i class="fa-regular fa-snowflake fa-2x mb-3" style="color: #ddd;"></i>
-
-                                            @else
-                                                <i class="fas fa-question-circle fa-2x mb-3" style="color: #ddd;"></i>
-                                            @endif
+                                        <p class="small">                            <span style="color:{{$color}};">
+                                            {{$forecast->temperature}} C
+                                        </span>
                                         </p>
-
+                                        <p class="small">
+                                            <i class="fas {{$icon}} fa-2x mb-3"></i>
+                                        </p>
                                         <p class="mb-0"><strong>{{ strftime('%A, %b %d', strtotime($forecast->date)) }}</strong></p>
                                     </div>
                                 @endforeach

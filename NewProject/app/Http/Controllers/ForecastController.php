@@ -42,13 +42,15 @@ class ForecastController extends Controller
             return redirect()->back()->withErrors(['date' => 'Forecast for this date already exists.']);
         }
 
-        Forecast::create([
-            "city_id" => $request->get("city_id"),
-            "temperature" => $request->get("temperature"),
-            "date" => $request->get("date"),
-            "probability"  => $request->get("probability"),
-            "weather_type"  => $request->get("weather_type"),
-        ]);
+        Forecast::create($request->all());
+
+        // Forecast::create([
+        //     "city_id" => $request->get("city_id"),
+        //     "temperature" => $request->get("temperature"),
+        //     "date" => $request->get("date"),
+        //     "probability"  => $request->get("probability"),
+        //     "weather_type"  => $request->get("weather_type"),
+        // ]);
 
         return redirect()->back();
 

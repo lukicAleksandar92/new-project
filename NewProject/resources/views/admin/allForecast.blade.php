@@ -79,24 +79,24 @@
                 </thead>
                 <tbody>
                     @foreach ($city->forecasts as $forecast)
+                        @php
+                            $color = \App\Http\ForecastHelper::getColorByTemperature($forecast->temperature);
+                            $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
+                        @endphp
                         <tr>
                             <td>{{$forecast->date}}</td>
-                            <td>{{$forecast->temperature }} C</td>
+                            <td>
+                            <span style="color:{{$color}};">
+                                {{$forecast->temperature}}
+                            </span>
+                            </td>
                             <td>
                                 @if ($forecast->probability)
                                     <p>{{$forecast->probability}}%</p>
                                 @endif
                             </td>
                             <td>
-                                @if ($forecast->weather_type == 'sunny')
-                                    <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                                @elseif ($forecast->weather_type == 'rainy')
-                                    <i class="fas fa-cloud-rain fa-2x mb-3" style="color: #ddd;"></i>
-                                @elseif ($forecast->weather_type == 'snow')
-                                    <i class="fa-regular fa-snowflake fa-2x mb-3" style="color: #ddd;"></i>
-                                @else
-                                    <i class="fas fa-question-circle fa-2x mb-3" style="color: #ddd;"></i>
-                                @endif
+                                <i class="fas {{$icon}} fa-2x mb-3"></i>
                             </td>
                         </tr>
                     @endforeach
