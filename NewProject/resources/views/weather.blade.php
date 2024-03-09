@@ -80,11 +80,14 @@
                                                 View details</a>
                                         </div>
                                         <div class="btn-group">
+                                            @php
+                                                $cities = \App\Models\City::all();
+                                            @endphp
+
                                             <a type="button" class="btn btn-sm btn-outline-dark"
-                                                href="
-                                            {{-- {{ route('cityForecast', ['city'] => $forecast->city->name]) }} --}}
-                                            ">
-                                                View forecast</a>
+                                               href="{{ route('cityForecast', ['city' => $cities->first()->name]) }}">
+                                                View forecast
+                                            </a>
                                         </div>
                                         </div>
                                     </div>

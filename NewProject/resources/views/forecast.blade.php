@@ -34,7 +34,6 @@
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 @foreach (\App\Models\City::all() as $city)
-
                     <div class="row py-4">
                         <div class="card" style="border-radius: 25px;">
                             <div class="card-body p-4">
@@ -43,31 +42,33 @@
                                         <h4 class="text-muted mb-">{{ $city->name }}</h4>
                                     </div>
                                     <div class="btn-group">
-                                <a type="button" class="btn btn-sm btn-outline-primary"
-                                {{-- href="{{ route('cityForecast', ['city' => $forecast->city->name]) }}" --}}
-                                >
+                                        <a type="button" class="btn btn-sm btn-outline-primary"
+                                            href="{{ route('cityForecast', ['city' => $city->name]) }}">
                                             View details
                                         </a>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row text-center mb-4 pb-3 pt-2">
-                                @foreach ($city->forecasts->sortBy('date') as $forecast)
-                                @php
-                                    $color = \App\Http\ForecastHelper::getColorByTemperature($forecast->temperature);
-                                    $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
-                                @endphp
-                                    <div class="col">
-                                        <p class="small">                            <span style="color:{{$color}};">
-                                            {{$forecast->temperature}} C
-                                        </span>
-                                        </p>
-                                        <p class="small">
-                                            <i class="fas {{$icon}} fa-2x mb-3"></i>
-                                        </p>
-                                        <p class="mb-0"><strong>{{ strftime('%A, %b %d', strtotime($forecast->date)) }}</strong></p>
-                                    </div>
-                                @endforeach
+                                    @foreach ($city->forecasts->sortBy('date') as $forecast)
+                                        @php
+                                            $color = \App\Http\ForecastHelper::getColorByTemperature(
+                                                $forecast->temperature,
+                                            );
+                                            $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
+                                        @endphp
+                                        <div class="col">
+                                            <p class="small"> <span style="color:{{ $color }};">
+                                                    {{ $forecast->temperature }} C
+                                                </span>
+                                            </p>
+                                            <p class="small">
+                                                <i class="fas {{ $icon }} fa-2x mb-3"></i>
+                                            </p>
+                                            <p class="mb-0">
+                                                <strong>{{ strftime('%A, %b %d', strtotime($forecast->date)) }}</strong></p>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

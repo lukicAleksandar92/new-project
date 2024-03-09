@@ -8,6 +8,7 @@ class ForecastHelper
         'sunny' => 'fa-sun text-warning',
         'rainy' =>'fa-cloud-rain text-secondary',
         'snow' => 'fa-snowflake text-info',
+        'cloudy' => 'fa-cloud text-muted',
     ];
 
 
@@ -37,7 +38,7 @@ class ForecastHelper
         if($temperature <=0) {
             $color = "lightblue";
         }
-        elseif ($temperature >=1 && $temperature<=15) {
+        elseif ($temperature >0 && $temperature<=15) {
             $color = "blue";
         }
         elseif ($temperature >15 && $temperature<=25) {
