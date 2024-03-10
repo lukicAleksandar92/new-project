@@ -9,13 +9,11 @@
 
     <h4>WEATHER CITY</h4>
 
-    <p>Weather for <b> {{ $city->name }} </b> on {{ now()->format('d-m-Y, l') }}</p>
+    <p>Weather for <b> {{ $citiesForecastToday->name }} </b> on {{ now()->format('d-m-Y, l') }}</p>
 
 
-    @foreach ($city->weathers as $weather)
+    @foreach ($citiesForecastToday->weathers as $weather)
         {{ $weather->temperature}} °C<br><hr>
-
-
     @endforeach
 
 

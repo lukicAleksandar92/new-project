@@ -21,11 +21,16 @@
                 </div>
                 <div class="d-flex flex-column flex-sm-row justify-content-center w-100 my-4">
                     <div class="mx-auto" style="width: 50%;">
-                        <div class="d-flex justify-content-center">
-                            <input id="newsletter1" type="text" class="form-control"
-                                placeholder="Type the name of the city...">
-                            <button class="btn btn-primary" type="button">Search</button>
-                        </div>
+                        <form method="GET" action="{{ route('forecast.search') }}" >
+                            <div class="d-flex justify-content-center">
+                                <input id="newsletter1" type="text" class="form-control"
+                                name='city' placeholder="Type the name of the city...">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                            @if(\Illuminate\Support\Facades\Session::has('error'))
+                            <p style="color: red">error : {{\Illuminate\Support\Facades\Session::get('error') }}</p>
+                        @endif
+                        </form>
                     </div>
                 </div>
             </div>

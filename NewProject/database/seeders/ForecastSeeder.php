@@ -24,10 +24,9 @@ class ForecastSeeder extends Seeder
 
         $cities = City::all();
 
-        $previousTemperature = rand(-30,40);
-
-
         foreach ($cities as $city) {
+
+            $previousTemperature = rand(-30,40);
 
             for ($i = 0; $i < $amount; $i++) {
 
@@ -46,6 +45,7 @@ class ForecastSeeder extends Seeder
                 $previousTemperature = $temperature;
 
 
+
                 if ($temperature >= -30 && $temperature <= -11) {
                     $weatherType = ($faker->boolean) ? 'snow' : 'sunny';
                 } elseif ($temperature >= -10 && $temperature <= 1) {
@@ -57,6 +57,15 @@ class ForecastSeeder extends Seeder
                 } elseif ($temperature >= 15 && $temperature <= 40) {
                     $weatherType = ($faker->boolean) ? 'sunny' : 'rainy';
                 }
+
+                // switch($weatherType) {
+
+                //     case 'sunny': $temperature= rand(-50,50);
+                //     case 'cloudy': $temperature= rand(-50,15);
+                //     case 'rainy': $temperature= rand(-10,50);
+                //     case 'snow': $temperature= rand(-50,1);
+
+                // }
 
 
                 $currentDate = Carbon::now();

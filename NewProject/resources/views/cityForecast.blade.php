@@ -11,13 +11,27 @@
 
     <p>Forecast for <b> {{ $city->name }} </b> in next 5 days</p>
 
-
-    @foreach ($city->forecasts as $forecast)
-        {{ $forecast->date }}<br>
-        {{ $forecast->temperature}} °C<br><hr>
-
-
-    @endforeach
+    <div class="row text-center mb-4 pb-3 pt-2">
+        @foreach ($city->forecasts->sortBy('date') as $forecast)
+            @php
+                $color = \App\Http\ForecastHelper::getColorByTemperature(
+                    $forecast->temperature,
+                );
+                $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
+            @endphp
+            <div class="col">
+                <p class="small"> <span style="color:{{ $color }};">
+                        {{ $forecast->temperature }} C
+                    </span>
+                </p>
+                <p class="small">
+                    <i class="fas {{ $icon }} fa-2x mb-3"></i>
+                </p>
+                <p class="mb-0">
+                    <strong>{{ strftime('%A, %b %d', strtotime($forecast->date)) }}</strong></p>
+            </div>
+        @endforeach
+    </div>
 
 
 </div>
