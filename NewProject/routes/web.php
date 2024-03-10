@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminForecastController;
 use App\Http\Controllers\Admin\AdminWeatherController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserCitiesController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,24 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+
+
+
+
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
+
+
+    /*
+    User cities
+    */
+            // /user-cities/favourite/5
+    Route::get("/user-cities/favourite/{city}", [UserCitiesController::class, "favourite"])->name("city.favourite");
+
+
+    Route::get("/user-cities/remove-favourite/{city}", [UserCitiesController::class, "removeFavourite"])->name("city.removeFavourite");
+
+    //----------------------------------------------------------------------
+
 
     Route::get('/allWeather', [AdminWeatherController::class, 'getAllWeather'])
     ->name('admin.allWeather');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Forecast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ForecastController extends Controller
 {
@@ -13,18 +14,24 @@ class ForecastController extends Controller
 
         $cityName = $request->get('city');
 
-        // SELECT * FROM City WHERE name LIKE %Beograd%
         $cities = City::with('todaysForecast')
-        ->where("name", "LIKE", "%$cityName%")->get();
+            ->where("name", "LIKE", "%$cityName%")->get();
 
-        if(count($cities) == 0) {
-            return redirect()->back()->with("error", "city NOT FOUND with given criteria '$cityName' ");
+        if (count($cities) == 0) {
+            return redirect()->back()->with("error", "City NOT FOUND with given criteria '$cityName'");
         }
 
+        $userFavourites = [];
+        if (Auth::check()) {
+            $userFavourites = Auth::user()->cityFavourites;
+        }
 
         return view('searchResults', compact('cities'));
-
     }
+
+
+
+
 
 
 
@@ -35,10 +42,21 @@ class ForecastController extends Controller
 
 
 
+
     public function showAllForecast()
     {
         $allForecast = Forecast::orderBy('id', 'desc')->get();
-        return view('forecast', compact('allForecast'));
+
+        $userFavourites = [];
+
+        if (Auth::check()) {
+
+            $userFavourites = Auth::user()->cityFavourites;
+
+        }
+
+
+        return view('forecast', compact('allForecast', 'userFavourites'));
     }
 
 
