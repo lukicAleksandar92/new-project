@@ -13,7 +13,7 @@
 
 
     @foreach ($citiesForecastToday->weathers as $weather)
-        {{ $weather->temperature}} °C<br><hr>
+        {{ $weather->city->todaysForecast->temperature}} °C<br><hr>
     @endforeach
 
 

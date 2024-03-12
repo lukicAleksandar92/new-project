@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserCitiesController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
+use App\Models\UserCities;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +32,18 @@ Route::get('/home', function () {
 
 Route::view("/about","about");
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', function () {
+    $userFavourites = [];
+    $user = Auth::user();
+
+    if ($user !== null) {
+        $userFavourites = UserCities::where('user_id', $user->id)->get();
+    }
+
+    return view('welcome', compact('userFavourites'));
+
+})->name('welcome');
+
 
 
 Route::get('/dashboard', function () {

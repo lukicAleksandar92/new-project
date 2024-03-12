@@ -47,15 +47,19 @@
                                         <div>
                                             <h2 class="display-5">
                                                 <strong>
-                                                    {{ $weather->temperature }}°C
+                                                    {{ $weather->city->todaysForecast->temperature }}°C
                                                 </strong>
                                             </h2>
                                             <h4 class="text-muted mb-">{{ $weather->city->name }}</h4>
                                             <p class="text-muted mb-0">{{ now()->format('d-m-Y, l') }}</p>
                                         </div>
                                         <div>
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp"
-                                                width="100px">
+                                            @php
+                                                $icon = \App\Http\ForecastHelper::getIconByType(
+                                                    $weather->city->todaysForecast->weather_type,
+                                                );
+                                            @endphp
+                                            <i class="fas {{ $icon }} fa-2x mb-3"></i>
                                         </div>
                                     </div>
                                     <hr>
@@ -68,12 +72,8 @@
                                                 View details</a>
                                         </div>
                                         <div class="btn-group">
-                                            @php
-                                                $cities = \App\Models\City::all();
-                                            @endphp
-
                                             <a type="button" class="btn btn-sm btn-outline-dark"
-                                                href="{{ route('cityForecast', ['city' => $cities->first()->name]) }}">
+                                                href="{{ route('cityForecast', ['city' => $weather->city->name]) }}">
                                                 View forecast
                                             </a>
                                         </div>

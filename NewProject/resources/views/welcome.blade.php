@@ -15,10 +15,22 @@
                 <form action="" class="my-4">
                     <div class="mx-auto">
                         <div class="d-flex justify-content-center">
-                            <input id="newsletter1" type="text" class="form-control"
-                                name='city' placeholder="Type the name of the city...">
+                            <input id="newsletter1" type="text" class="form-control" name='city'
+                                placeholder="Type the name of the city...">
                             <button class="btn btn-primary" type="button">Search</button>
                         </div>
+
+                        @foreach ($userFavourites as $favourite)
+                            <p>
+                                <i class="fa-solid fa-heart text-danger"></i>
+
+                                <i class="fas {{ $favourite->city->icon }}"></i>
+
+                                {{ $favourite->city->name }}
+
+                                {{ $favourite->city->todaysForecast->temperature }} C
+                            </p>
+                        @endforeach
                     </div>
                 </form>
 
