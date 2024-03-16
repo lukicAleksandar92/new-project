@@ -22,7 +22,7 @@
 
                 @foreach ($cities as $city)
                     @php
-                        $icon = \App\Http\ForecastHelper::getIconByType($city->todaysForecast->weather_type);
+                        // $icon = \App\Http\ForecastHelper::getIconByType($city->todaysForecast->weather_type);
 
                         $isFavorite = Auth::user()->cityFavourites->contains('city_id', $city->id);
                     @endphp
@@ -30,7 +30,7 @@
                     <div class="btn-group my-2 align-items-center text center">
                         <a type="button" class="btn btn-sm btn-outline-primary"
                             href="{{ route('cityForecast', ['city' => $city->name]) }}">
-                            <i class="fas {{ $icon }}"></i>
+                            {{-- <i class="fas {{ $icon }}"></i> --}}
                             {{ $city->name }}
                         </a>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Forecast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class ForecastController extends Controller
@@ -13,6 +14,8 @@ class ForecastController extends Controller
     public function search(Request $request) {
 
         $cityName = $request->get('city');
+
+        Artisan::call("app:current-weather", ['city' => $cityName]);
 
         $cities = City::with('todaysForecast')
             ->where("name", "LIKE", "%$cityName%")->get();
@@ -50,14 +53,12 @@ class ForecastController extends Controller
         $userFavourites = [];
 
         if (Auth::check()) {
-
             $userFavourites = Auth::user()->cityFavourites;
-
         }
-
 
         return view('forecast', compact('allForecast', 'userFavourites'));
     }
+
 
 
 }
