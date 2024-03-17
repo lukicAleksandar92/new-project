@@ -14,21 +14,23 @@ class ForecastHelper
 
     public static function getIconByType($type) {
 
-        $icons = self::WEATHER_ICONS[$type];
-        return $icons;
+        // if(in_array($type, self::WEATHER_ICONS)) {
 
-        // if($type == 'sunny') {
+        //     return self::WEATHER_ICONS[$type];
 
-        //     $icon = "fa-sun text-warning";
         // }
-        // elseif ($type =='rainy') {
-        //     $icon = "fa-cloud-rain text-secondary";
-        // }
-        // else {
-        //     $icon = "fa-snowflake text-info";
-        // } ;
 
-        // return $icon;
+        // return 'fa-sun text-warning';
+
+        $icon = match($type) {
+            'sunny' => 'fa-sun text-warning',
+            'rainy' =>'fa-cloud-rain text-secondary',
+            'snow' => 'fa-snowflake text-info',
+            'cloudy' => 'fa-cloud text-muted',
+            default => 'fa-sun'
+        };
+
+        return $icon;
 
     }
 

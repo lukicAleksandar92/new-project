@@ -84,16 +84,16 @@
                                             $color = \App\Http\ForecastHelper::getColorByTemperature(
                                                 $forecast->temperature,
                                             );
-                                            // $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
+                                            $icon = \App\Http\ForecastHelper::getIconByType($forecast->weather_type);
                                         @endphp
                                         <div class="col">
                                             <p class="small">
                                                 <span style="color:{{ $color }}">{{ $forecast->temperature }}
                                                     C</span>
                                             </p>
-                                            {{-- <p class="small">
+                                            <p class="small">
                                                 <i class="fas {{ $icon }} fa-2x mb-3"></i>
-                                            </p> --}}
+                                            </p>
                                             <p class="mb-0">
                                                 <strong>{{ strftime('%A, %b %d', strtotime($forecast->date)) }}</strong>
                                             </p>
